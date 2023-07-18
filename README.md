@@ -1,4 +1,4 @@
-##👋 Hello, I'm Victor Mk!
+👋 Hello, I'm Victor Mk!
 
 👨‍💻 Self-taught Programmer | 🌐 Web Development Enthusiast | 🚀 Open Source Contributor | 🐍 Python Enthusiast
 👾 Currently taking Software Engineering Program at ALX
