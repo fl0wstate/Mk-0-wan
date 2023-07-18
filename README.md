@@ -1,7 +1,7 @@
 
-# 👋 Hello, I'm Victor Mk!
+#👋 Hello, I'm Victor Mk!
 
-👨‍💻 Self-taught Programmer | 🌐 Web Development Enthusiast | 🚀 Open Source Contributor | Python Enthusiast
+👨‍💻 Self-taught Programmer | 🌐 Web Development Enthusiast | 🚀 Open Source Contributor | 🐍 Python Enthusiast
 
 💡 Passionate about coding and always eager to learn new technologies, I embarked on a self-taught programming journey. I've honed my skills through countless hours of online resources, tutorials, and hands-on projects.
 
