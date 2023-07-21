@@ -6,4 +6,4 @@
 * 🌟 Let's connect and collaborate! Feel free to explore my repositories and reach out to me.
 * 🌍 I'm open to exciting opportunities, collaborative projects, and discussions.
 * Happy coding! 🚀
-  All the explanation will be done on the file themselves at the end of the code
+* All the explanation will be done on the file themselves at the end of the code
