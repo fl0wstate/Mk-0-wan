@@ -11,7 +11,7 @@ int main(void)
 	bot p =  { 2.456, 32.56 };
 	Point_print(&p);
 	//change or assign values to a struct
-	//Point_translate(&p, x, y);
+	Point_translate(&p, x, y);
 	//assign values to a pointer struct
 	Point_translate(ptr, x, y);
 	Point_print(ptr);
