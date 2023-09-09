@@ -19,8 +19,8 @@
 
 int main(void)
 {
-	char *arr[] = {DKRED, DKGRN ,DKYEL, DKBLU, DKMAG, DKCYN, DKWH};
-	char *arr2[] = {BRRED, BRGRN, BRYEL, BRBLU, BRMAG, BRCYN, BRWH};
+	char *arr[] = {DKRED, DKGRN ,DKYEL, DKBLU, DKMAG, DKCYN, DKWHT};
+	char *arr2[] = {BRRED, BRGRN, BRYEL, BRBLU, BRMAG, BRCYN, BRWHT};
 	int j, i;
 	int ar1 = sizeof(arr) / sizeof(arr[0]);
 	int ar2 = sizeof(arr2) / sizeof(arr2[0]);
