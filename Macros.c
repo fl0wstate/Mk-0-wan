@@ -28,19 +28,29 @@
     (x) = (y);\
     (y) = _temp;\
 }while (0);
+#define ASSERT(cond) if( !(cond) )\
+{printf( "assertion error line::%d, file::%s\n", \
+__LINE__, __FILE__ );}
+/* Added some more macro information i found on the web */
+#define ARRAY_LEN(x) (sizeof(x)/sizeof((x)[0]))
+#define CSTR_(cstr_) (ARRAY_LEN(cstr_)-1) /* remove the null terminator */
 
 int main(void)
 {
     int a = 32;
     int b = 23;
     int x = 77;
+    char *swap = "ab";
     char *Parent = "Child";
-    
-    PPrint(Parent)
-    Debugg(a, b)
+   
+    printf("Len of array is : %d\n", ARRAY_LEN(Parent));
+    printf("String len is : %d\n",CSTR_(Parent));
+    PPrint(Parent);
+    Debugg(a, b);
     printf("clampped value is : %d\n", CLAMP(a, x, b));
     Swap_(a,b);
     printf("%d swapped %d\n" , a, b);
+    
 
     if (a < 0)
     {
@@ -53,6 +63,7 @@ int main(void)
     {
         SWAP_ADV(a,x);
         printf("%d (a,x) %d\n", a, x);
+	ASSERT(a < 0);
 	/* After swapping values of a & x */
     	printf("clampped value is : %d\n", CLAMP(a, x, b));
     }
