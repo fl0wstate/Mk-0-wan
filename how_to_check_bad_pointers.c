@@ -1,27 +1,30 @@
 #include <stdio.h>
-#include <sys/types.h>
 #include <string.h>
+#include <sys/types.h>
+#include <wait.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
-#define asseRt(cond) if (!cond)\
-{printf("Asserstion at line::%d of file::%s failed\n", __LINE__, __FILE__);}
+#define asseRt(cond) {if (false)\
+{printf("failed at line::%d of file::%s failed\n", __LINE__, __FILE__); }}
+
 /**
- * check_pointer - looks if a pointer is valid or junk
+ * ismapped - looks if a pointer is valid or junk
  * @ptr: pointer passed to checking
  * @bytes: number of bytes to write
- * Return: 0 success, 1 failure.
+ * @write: allows us to write to memory
+ *
+ * Return: 0 (failure), false 1 (success)true.
  */
-int ismapped_succesfuly(void *ptr, int bytes, bool write)
+int ismapped(void *ptr, int bytes, bool write)
 {
-	/* use fork to make multiple process
-	 * we are only going to check by writting to memory
-	 * or reading from memory.
-	 */
 	pid_t child;
 	int status;
 	pid_t result;
+	char *byte_wriiten;
+	int len = 0;
 
 	child = fork();
 	if (child == 0)
@@ -29,51 +32,122 @@ int ismapped_succesfuly(void *ptr, int bytes, bool write)
 		if (write)
 		{
 			/* set every byte to zero's */
-			memset(ptr, 0, bytes);
+			len = (strlen((char *)ptr) + 1);
+			if (len == bytes)
+			{
+				memset(ptr, 0, bytes);
+				free(ptr);
+			}
+			else
+			{
+				byte_wriiten = (bytes < len) ? "less" : "more";
+				printf("Invalid write %s bytes passed\t", byte_wriiten);
+				free(ptr);
+				exit(EXIT_FAILURE);
+			}
 		}
 		else
 		{
 			/* if read mode just make a copy of all the data */
 			void *data = malloc(bytes);
-			memcopy(data, ptr, bytes);
+
+			len = (strlen((char *)ptr) + 1);
+			if (len == bytes)
+			{
+				memcpy((char *)data, ptr, bytes);
+				free(data);
+				free(ptr);
+			}
+			else
+			{
+				byte_wriiten = (bytes < len) ? "less" : "more";
+				printf("Invalid read %s bytes passed\t", byte_wriiten);
+				free(data);
+				free(ptr);
+				exit(EXIT_FAILURE);
+			}
 		}
-		exit(0);
-	}/* child process finished with success */
+		exit(EXIT_SUCCESS);
+	} /* child process finished with success */
 	result = waitpid(child, &status, 0);/* wait for the child id to finish */
-	asseRt(result >= 0);
-	return (status == 0);
+	asseRt(result);
+	(void)result;
+	return (status == EXIT_SUCCESS);
 }
-		
-void testptr(void *ptr, int bytes, char *name)
+/* original ismapped */
+
+/**
+ * testptr - test the pointers and gives an output
+ * @ptr: pointer to a memory block to test
+ * @bytes: number of bytes to be written
+ * @name: name of the pointer
+ * @mode: write or read mode
+ *
+ * Return: void just prints out memory addresses
+ */
+void testptr(void *ptr, int bytes, char *name, char *mode)
 {
-	 printf("%s:\t%d\t%p\n", name, ismapped_succefully(ptr, bytes, true), ptr);
+	if (!strcmp(mode, "write"))
+		printf("%s:\t%d\t%p\n", name, ismapped(ptr, bytes, true), ptr);
+	else if (!strcmp(mode, "read"))
+	{
+		printf("%s:\t%d\t%p\n", name, ismapped(ptr, bytes, false), ptr);
+	}
+
+	else
+	{
+		printf("Not a valid mode");
+		return;
+	}
 }
+/**
+ * main - tests the program
+ * Return: 0 success
+ */
 int main(void)
 {
-	int *junk = NULL;
-	int *junk2 = (int*)((uintptr_t)0x352342524a);
-	int *p = malloc(10);
-	int x = 5;
-	int i = 0;
-	int *px = &x;
-	char *buff = "Hello world";
-	char *base = malloc(strlen(buff));
-	
-	while (i < (strlen(buff)))
+	int i = 0; /*len = 0*/
+	char *buff = "dlrow elloH";
+	/*char buff2[] = "Hello world";*/
+	char *base;
+/*
+	base1 = malloc(strlen(buff2) + 1);
+	if (base1)
+		strcpy(base1, buff2);
+	else
 	{
-		base[i] = buff[i];
-		i++;
+		printf("Memory allocation failed\n");
+		exit(EXIT_FAILURE);
 	}
-	base[i++] = '\0';
+	printf("-> base1 is %s\n", base1);
+*/
+	base = malloc(strlen(buff) + 1);
+	if (base)
+		strcpy(base, buff);
+	else
+	{
+		printf("Memory allocation failed\n");
+		exit(EXIT_FAILURE);
+	}
 	printf("-> base is %s\n", base);
-	
-	testptr(junk, 1, "junk");
-	testptr(junk2, 1, "junk");
-	testptr(p, 10, "p");
-	testptr(px, (sizeof(int)), "px");
-	testptr(base, (strlen(buff)), "base");
+	/*len = strlen(base1) + 1;*/
+	i = strlen(base) + 1;
 
+	/*
+	printf("--------------Base(Write Mode)------------------\n");
+	testptr(base1, len - 1, "base", "write");
+	testptr(base1, len, "base", "write");
+	testptr(base1, len + 1, "base", "write");
+	printf("--------------Base----------------\n");
+	printf("\n\n");
+	*/
+	printf("--------------Base(Read Mode)------------------\n");
+	testptr(base, i - 1, "base", "read");
+	testptr(base, i, "base", "read");
+	testptr(base, i + 1, "base", "read");
+	printf("--------------Base----------------\n");
+	free(base);
+	/*free(base1);*/
 	return (0);
 }
-
 
