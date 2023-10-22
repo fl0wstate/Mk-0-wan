@@ -33,5 +33,5 @@ int main() {
         count++;
     }
     close(file_descriptor);
-    return 0;
+    return (0);
 }
