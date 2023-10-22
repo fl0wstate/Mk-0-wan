@@ -13,7 +13,9 @@ int _strlen(char *str)
     }
     return len;
 }
-
+/**
+* number2 - transforms a string of binary no. to actual int values
+*/
 int number2(char *str)
 {
     int i = 0, s = 0, decimal = 0, j = 0, number, position, *digits;
