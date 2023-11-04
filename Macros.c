@@ -34,6 +34,7 @@ __LINE__, __FILE__ );}
 /* Added some more macro information i found on the web */
 #define ARRAY_LEN(x) (sizeof(x)/sizeof((x)[0]))
 #define CSTR_(cstr_) (ARRAY_LEN(cstr_)-1) /* remove the null terminator */
+#define DEBUG(...) fprintf(stderr, __VA_ARGS__)
 
 int main(void)
 {
@@ -64,6 +65,7 @@ int main(void)
         SWAP_ADV(a,x);
         printf("%d (a,x) %d\n", a, x);
 	ASSERT(a < 0);
+	DEBUG("Somthing went wrong over here %d\n", a);
 	/* After swapping values of a & x */
     	printf("clampped value is : %d\n", CLAMP(a, x, b));
     }
