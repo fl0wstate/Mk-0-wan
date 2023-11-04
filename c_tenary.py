@@ -1,7 +1,7 @@
 string = "Best School\nCan you c me"
 C = ['c', 'C']
-def tenary_op(C = [], str = ""):
-    return int(str.find((C[0], C[1])[C[1] in str]))
+def tenary_op(C = [], string = ""):
+    return int(string.find((C[0], C[1])[C[1] in string]))
 
 while tenary_op(C, string) != -1:
     # do some slicing
