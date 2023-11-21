@@ -46,7 +46,8 @@ def delete_at(my_list=[], idx=0):
     my_list = my_list[:idx] + my_list[idx+1:]
     return my_list
 
-new_list = delete_at(my_list_2, 1)
+new_list = delete_at(my_list, 1)
+print(my_list)
 print(new_list)
 #!/usr/bin/python3
 a = 89
