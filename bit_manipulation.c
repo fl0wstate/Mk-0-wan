@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
-#define CHAR_BIT 8
+#include <limits.h>
+#define CHAR_64 (16)
 #define Swap(a, b) (((a) == (b)) || (((a) ^= (b)), ((b) ^= (a)), ((a) ^= (b))))
 #define Swap2(a, b) (((a) ^ (b)) && ((b) ^= (a) ^= (b), (a) ^= (b)))
 
@@ -12,6 +13,10 @@ int binTodec(unsigned int binary);
 unsigned int _flip_bits(unsigned int a, unsigned int b);
 void print_binary(unsigned int digit);
 char *create_special_heap(int num, bool sign);
+void bit_32_pattern(int u);
+void bit_64_pattern(int u);
+
+
 int main()
 {
   int v = +21;
@@ -132,6 +137,14 @@ int main()
   printf("Bits to flip -> %d\n", _flip_bits(3, 12));
   printf("Bits to flip -> %d\n", _flip_bits(100, 33));
   printf("Bits to flip -> %d\n", _flip_bits(23, 32));
+
+  /*Getting bits position and value*/
+  bit_32_pattern(255); 
+  bit_64_pattern((int)'A'); 
+  bit_32_pattern(3);
+  bit_64_pattern(2);
+  bit_32_pattern(45);
+  bit_64_pattern(45);
   printf("The end\n");
     return 0;
 }
@@ -251,4 +264,49 @@ char *create_special_heap(int num, bool sign)
         return (NULL);
     }
     return (s);
+}
+
+
+/**
+ * some bits examples and how they work
+ * Good Luck!!
+*/
+void bit_32_pattern(int u)
+{
+    int i, x, word;
+    unsigned int Mask = 1;
+
+    word = 8 * sizeof(int);
+    Mask = Mask << (word - 1);
+    i = 0;
+    while (i < word)
+    {
+        x = (u & Mask) ? 1 : 0;
+        if (i >= CHAR_BIT && i % CHAR_BIT == 0)
+            printf(" ");
+        printf("%d", x);
+        Mask >>= 1;
+        i++;
+    }
+    printf(" [1b]\n");
+}
+
+void bit_64_pattern(int u)
+{
+    int i, x, word;
+    unsigned int Mask = 1;
+
+    word = CHAR_64 * sizeof(int);
+    Mask = Mask << (word - 1);
+    i = 0;
+    while (i < word)
+    {
+        x = (u & Mask) ? 1 : 0;
+        if (i >= CHAR_BIT && i % CHAR_BIT == 0)
+            printf(" ");
+        printf("%d", x);
+        Mask >>= 1;
+        i++;
+    }
+    printf(" [2b]\n");
 }
