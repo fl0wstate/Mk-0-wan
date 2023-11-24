@@ -1,0 +1,7 @@
+rand(): This function is part of the C standard library, and it generates a pseudo-random integer. However, the sequence of numbers it generates is deterministic and depends on the initial seed provided by srand. As mentioned earlier, for more randomness, you might want to seed it with the current time.
+
+max - min + 1: This expression represents the size of the range, including both min and max. For example, if min is 2 and max is 5, the range size is 5 - 2 + 1 = 4.
+
+rand() % (max - min + 1): The modulo operator (%) is used to get the remainder of the division of the random number by the range size. This ensures that the result is within the range [0, max - min].
+
+min + rand() % (max - min + 1): Finally, this adjusts the result to be within the desired range [min, max]. The generated random number will be in the range [min, max], inclusive.
