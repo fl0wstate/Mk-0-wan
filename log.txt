@@ -1,0 +1,2 @@
+Called a function with [1, 3, 45, 6] at 2023-12-09 09:29:16.660114
+Called a function with [Hello, I am loggin, in] at 2023-12-09 09:29:54.386726

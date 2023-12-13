@@ -155,7 +155,7 @@ void factors(ll n)
 
 int main(void)
 {
-   factors(239809320265259);
+   factors(77);
    printf("Done\n");
 
    return (0);
