@@ -62,6 +62,6 @@ void use_it(int a)
 //safe and unable to make more expensive mistakes
 //note that a struct pointer should be freed and will not need an address of operator while calling it
 //you are responsible of freeing the dynamically allocated memory in the heap
-//allways make sure to use a helper function in all your c file to check for allocation failure
+//allways make sure to use a helper function in all your c file to check for allocation failure.
 
 
